@@ -4,7 +4,6 @@ public enum Piattaforma {
     PLAYSTATION,
     XBOX,
     PC,
-    NINTENDO_SWITCH,
-    MOBILE,
-    VISORI_VR
+    NINTENDO,
+    MOBILE
 }

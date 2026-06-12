@@ -14,6 +14,10 @@ public class Collezione {
         this.listaGiochi = new ArrayList<>();
     }
 
+    public ArrayList<Gioco> getListaGiochi() {
+        return listaGiochi;
+    }
+
     //METODI
 
     //region aggiungiELemento
@@ -137,7 +141,7 @@ public class Collezione {
                 .filter(gioco -> gioco.getPrezzo() == prezzoPiuAlto)
                 .findFirst().get();
 
-        System.out.println("Gioco più costoso: " + giocoPiuCaro.getTitolo() + " (€" + giocoPiuCaro.getPrezzo() + ")");
+        System.out.println("Gioco più costoso: " + giocoPiuCaro.getTitolo() + " (" + giocoPiuCaro.getPrezzo() + "€)");
 
 
         double mediaPrezzi = listaGiochi.stream()
@@ -145,7 +149,15 @@ public class Collezione {
                 .average()
                 .getAsDouble();
 
-        System.out.println("Media dei prezzi di tutti i giochi: €" + mediaPrezzi);
+        System.out.println("Media dei prezzi di tutti i giochi: " + mediaPrezzi + "€");
     }
     //endregion
+
+
+    @Override
+    public String toString() {
+        return "Collezione{" +
+                "listaGiochi=" + listaGiochi +
+                '}';
+    }
 }
