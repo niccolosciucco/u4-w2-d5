@@ -2,11 +2,13 @@ package niccoloSciucco;
 
 import niccoloSciucco.entities.Collezione;
 import niccoloSciucco.entities.GiochiDaTavolo;
+import niccoloSciucco.entities.Gioco;
 import niccoloSciucco.entities.VideoGiochi;
 import niccoloSciucco.enums.Genere;
 import niccoloSciucco.enums.Piattaforma;
 import niccoloSciucco.exceptions.*;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Application {
@@ -18,6 +20,7 @@ public class Application {
             Scanner scanner = new Scanner(System.in);
             boolean isOver = false;
             while (!isOver) {
+                System.out.println(" ");
                 System.out.println("Premere 1 per inserire un videogioco. Premere 2 per inserire un gioco da tavola. Premere 0 per terminare l'aggiunta di giochi");
 
                 //region CONTROLLO INPUT INIZIALE
@@ -32,9 +35,8 @@ public class Application {
                     if (tipoDiGioco != 0 && tipoDiGioco != 1 && tipoDiGioco != 2) {
                         throw new IsNotAByte("L'input inserito non è valido!");
                     } else if (tipoDiGioco == 0) {
-                        break;
+                        isOver = true;
                     }
-                    System.out.println("Hai selezionato il tipo: " + tipoDiGioco);
                 } catch (IsNotAByte e) {
                     System.out.println(e.getMessage());
                     System.out.println("Riavviare il programma per ricominciare");
@@ -273,8 +275,12 @@ public class Application {
                 System.out.println("Impossibile proseguire con l'esecuzione del programma.");
                 System.out.println("Non è stato inserito nessun gioco.");
                 System.out.println("Chiusura programma in corso...");
+                return;
             }
 
+            boolean stop = false;
+
+            System.out.println("");
             System.out.println("E' possibile eseguire i seguenti metodi: ");
             System.out.println("Ricerca gioco per ID (Inserire codice 1)");
             System.out.println("Ricerca giochi inferiori ad un determinato prezzo (Inserire codice 2)");
@@ -282,49 +288,89 @@ public class Application {
             System.out.println("Rimuovere gioco per ID (Inserire codice 4)");
             System.out.println("Aggiorna gioco per ID (Inserire codice 5)");
             System.out.println("Stampa statistiche (Inserire codice 6)");
+            System.out.println("Per chiudere il programma, premere 0");
 
+            while (!stop) {
+                byte metodoDaEseguire = 0;
+                try {
+                    if (!scanner.hasNextByte()) {
+                        throw new IsNotInt("Il codice inserito non è valido");
+                    } else {
+                        metodoDaEseguire = scanner.nextByte();
+                        scanner.nextLine();
+                    }
+                } catch (IsNotInt e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("Riavviare il programma per ricominciare");
+                    scanner.next();
+                    continue;
+                }
 
-            //2. RICERCA PER ID
-//            Gioco prova = collezionePrincipale.ricercaPerId(99);
+                if (metodoDaEseguire == 0) {
+                    System.out.println("Chiusura Programma in corso...");
+                    return;
+                }
 
-            //3. RICERCA PER PREZZO
-//            double budget = 32.00;
-//            List<Gioco> prova = collezionePrincipale.ricercaPerPrezzoInferiore(budget);
-//
-//            if (prova.isEmpty()) {
-//                System.out.println("Nessun gioco trovato sotto " + budget + "€");
-//            } else {
-//                System.out.println("Sono stati trovati " + prova.size() + " giochi che hanno un prezzo inferiore a " + budget + "€:");
-//                for (Gioco g : prova) {
-//                    System.out.println("- " + g.getTitolo() + " -€" + g.getPrezzo());
-//                }
-//            }
+                switch (metodoDaEseguire) {
+                    case 1 -> {
+                        System.out.println("Inserire l'ID da cercare");
+                        int id = scanner.nextInt();
+                        Gioco gioco = collezionePrincipale.ricercaPerId(id);
+                        System.out.println(gioco);
+                        System.out.println(" ");
+                        System.out.println("Inserire un altro codice per continuare o premere 0");
+                    }
+                    case 2 -> {
+                        System.out.println("Inserire un prezzo (es. 29,9)");
+                        double prezzo = scanner.nextDouble();
+                        List<Gioco> gioco = collezionePrincipale.ricercaPerPrezzoInferiore(prezzo);
 
-            //4. RICERCA PER NUMERO GIOCATORI
-//            int nGiocatori = 6;
-//            List<Gioco> filtratiPerGiocatori = collezionePrincipale.ricercaPerNumeroDiGiocatori(nGiocatori);
-//
-//            if (filtratiPerGiocatori.isEmpty()) {
-//                System.out.println("Nessun gioco da tavolo trovato per " + nGiocatori + " giocatori");
-//            } else {
-//                System.out.println("I giochi da tavolo trovati per " + nGiocatori + " persone sono " + filtratiPerGiocatori.size() + ":");
-//                for (Gioco g : filtratiPerGiocatori) {
-//                    System.out.println("- " + g.getTitolo());
-//                }
-//            }
+                        if (gioco.isEmpty()) {
+                            System.out.println("Nessun gioco trovato sotto " + prezzo + "€");
+                        } else {
+                            System.out.println("Sono stati trovati " + gioco.size() + " giochi che hanno un prezzo inferiore a " + prezzo + "€:");
+                            for (Gioco g : gioco) {
+                                System.out.println("- " + g.getTitolo() + " -€" + g.getPrezzo());
+                            }
+                        }
+                    }
+                    case 3 -> {
+                        System.out.println("Inserire il numero di giocatori");
+                        int n = scanner.nextInt();
+                        List<Gioco> filtratiPerGiocatori = collezionePrincipale.ricercaPerNumeroDiGiocatori(n);
 
-            //5. RIMOZIONE PER ID
-//            collezionePrincipale.rimozioneElemento(1);
-//            collezionePrincipale.rimozioneElemento(99);
-
-            //6. AGGIORNAMENTO
-//            collezionePrincipale.aggiornaGioco(2, "Risiko 2", 49.99);
-//            System.out.println(collezionePrincipale);
-
-
-            //7. STAMPA STATISTICHE
-//            collezionePrincipale.stampaStatistiche();
-
+                        if (filtratiPerGiocatori.isEmpty()) {
+                            System.out.println("Nessun gioco da tavolo trovato per " + n + " giocatori");
+                        } else {
+                            System.out.println("I giochi da tavolo trovati per " + n + " persone sono " + filtratiPerGiocatori.size() + ":");
+                            for (Gioco g : filtratiPerGiocatori) {
+                                System.out.println("- " + g.getTitolo());
+                            }
+                        }
+                    }
+                    case 4 -> {
+                        System.out.println("Inserire l'ID del gioco da eliminare");
+                        int id = scanner.nextInt();
+                        collezionePrincipale.rimozioneElemento(id);
+                    }
+                    case 5 -> {
+                        System.out.println("Inserire l'ID del gioco da aggiornare");
+                        int id = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.println("Inserire il titolo da aggiornare (Inserire il titolo vecchio se non si vuole cambiare)");
+                        String titolo = scanner.nextLine();
+                        System.out.println("Inserire il prezzo da aggiornare (Inserire il prezzo vecchio se non si vuole cambiare)");
+                        double prezzo = scanner.nextDouble();
+                        scanner.nextLine();
+                        collezionePrincipale.aggiornaGioco(id, titolo, prezzo);
+                        System.out.println(collezionePrincipale);
+                    }
+                    case 6 -> {
+                        System.out.println("Statistiche aggiornate: ");
+                        collezionePrincipale.stampaStatistiche();
+                    }
+                }
+            }
         } catch (SetAttributeError e) {
             System.out.println("Errore nella creazione del gioco: " + e.getMessage());
         } catch (GameAlreadyExists e) {
