@@ -261,6 +261,8 @@ public class Application {
 
             boolean stop = false;
 
+            //region ESECUZIONE METODI
+
             System.out.println("");
             System.out.println("E' possibile eseguire i seguenti metodi: ");
             System.out.println("Ricerca gioco per ID (Inserire codice 1)");
@@ -427,6 +429,7 @@ public class Application {
                     }
                 }
             }
+            //endregion
         } catch (SetAttributeError e) {
             System.out.println("Errore nella creazione del gioco: " + e.getMessage());
         } catch (GameAlreadyExists e) {
