@@ -9,5 +9,6 @@ public enum Genere {
     SIMULAZIONE,
     SPORTIVI,
     BATTLE_ROYALE,
-    MMO
+    MMO,
+    RPG
 }
