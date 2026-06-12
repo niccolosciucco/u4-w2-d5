@@ -47,10 +47,23 @@ public class Collezione {
 
     //region ricercaPerPrezzo
     public List<Gioco> ricercaPerPrezzoInferiore(double prezzoMassimo) {
-        return listaGiochi.stream()
+        List<Gioco> result = listaGiochi.stream()
                 .filter(gioco -> gioco.getPrezzo() < prezzoMassimo)
                 .collect(Collectors.toList());
+
+        return result;
     }
     //endregion
 
+    //region ricercaPerNumeroDiGiocatori
+    public List<Gioco> ricercaPerNumeroDiGiocatori(int giocatoriCercati) {
+        List<Gioco> result = listaGiochi.stream()
+                .filter(gioco -> gioco instanceof GiochiDaTavolo)
+                .map(gioco -> (GiochiDaTavolo) gioco)
+                .filter(giocoDaTavolo -> giocoDaTavolo.getNumeroDiGiocatori() == giocatoriCercati)
+                .collect(Collectors.toList());
+
+        return result;
+    }
+    //endregion
 }

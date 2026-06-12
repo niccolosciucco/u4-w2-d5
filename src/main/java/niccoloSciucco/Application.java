@@ -40,6 +40,19 @@ public class Application {
 //                }
 //            }
 
+            //RICERCA PER NUMERO GIOCATORI
+//            int nGiocatori = 6;
+//            List<Gioco> filtratiPerGiocatori = miaCollezione.ricercaPerNumeroDiGiocatori(nGiocatori);
+//
+//            if (filtratiPerGiocatori.isEmpty()) {
+//                System.out.println("Nessun gioco da tavolo trovato per " + nGiocatori + " giocatori");
+//            } else {
+//                System.out.println("I giochi da tavolo trovati per " + nGiocatori + " persone sono " + filtratiPerGiocatori.size() + ":");
+//                for (Gioco g : filtratiPerGiocatori) {
+//                    System.out.println("- " + g.getTitolo());
+//                }
+//            }
+
         } catch (SetAttributeError e) {
             System.out.println("Errore nella creazione del gioco: " + e.getMessage());
         } catch (GameAlreadyExists e) {

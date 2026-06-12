@@ -20,6 +20,10 @@ public class GiochiDaTavolo extends Gioco {
         }
     }
 
+    public int getNumeroDiGiocatori() {
+        return numeroDiGiocatori;
+    }
+
     @Override
     public String toString() {
         return "GiochiDaTavolo{" +
