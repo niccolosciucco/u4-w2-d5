@@ -75,4 +75,52 @@ public class Collezione {
         System.out.println("Gioco '" + giocoDaRimuovere.getTitolo() + "' eliminato con successo!");
     }
     //endregion
+
+    //region Aggiorna
+    public void aggiornaGioco(int idDaModificare, String nuovoTitolo, double nuovoPrezzo) {
+        Gioco giocoDaModificare = ricercaPerId(idDaModificare);
+
+        String titolo = giocoDaModificare.getTitolo();
+        double prezzo = giocoDaModificare.getPrezzo();
+
+        boolean isNewTitle = false;
+        boolean isNewPrice = false;
+
+        if (!titolo.equals(nuovoTitolo)) {
+            giocoDaModificare.setTitolo(nuovoTitolo);
+            isNewTitle = true;
+        }
+        if (prezzo != nuovoPrezzo) {
+            giocoDaModificare.setPrezzo(nuovoPrezzo);
+            isNewPrice = true;
+        }
+
+        if (!isNewPrice && !isNewTitle) {
+            System.out.println("Il gioco non è stato aggiornato, i dati passati non erano aggiornati");
+            return;
+        }
+
+        System.out.println("Gioco con ID " + idDaModificare + " aggiornato con successo");
+
+        if (isNewPrice && isNewTitle) {
+            System.out.println("Il nuovo titolo è: " + nuovoTitolo);
+            System.out.println("Il nuovo prezzo è: " + nuovoPrezzo);
+            return;
+        }
+
+        if (isNewPrice) {
+            System.out.println("Il nuovo titolo è: " + nuovoTitolo);
+        } else {
+            System.out.println("Il nuovo prezzo è: " + nuovoPrezzo);
+        }
+    }
+    //endregion
+
+
+    @Override
+    public String toString() {
+        return "Collezione{" +
+                "listaGiochi=" + listaGiochi +
+                '}';
+    }
 }

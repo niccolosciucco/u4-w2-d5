@@ -57,6 +57,10 @@ public class Application {
 //            miaCollezione.rimozioneElemento(1);
 //            miaCollezione.rimozioneElemento(99);
 
+            //AGGIORNAMENTO
+//            miaCollezione.aggiornaGioco(2, "Risiko 2", 49.99);
+//            System.out.println(miaCollezione);
+
         } catch (SetAttributeError e) {
             System.out.println("Errore nella creazione del gioco: " + e.getMessage());
         } catch (GameAlreadyExists e) {
