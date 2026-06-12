@@ -116,11 +116,36 @@ public class Collezione {
     }
     //endregion
 
+    //region stampa
+    public void stampaStatistiche() {
+        long totaleVideoGiochi = listaGiochi.stream()
+                .filter(gioco -> gioco instanceof VideoGiochi)
+                .count();
+        System.out.println("Numero totale di Videogiochi: " + totaleVideoGiochi);
 
-    @Override
-    public String toString() {
-        return "Collezione{" +
-                "listaGiochi=" + listaGiochi +
-                '}';
+        long totaleGiochiDaTavolo = listaGiochi.stream()
+                .filter(gioco -> gioco instanceof GiochiDaTavolo)
+                .count();
+        System.out.println("Numero totale di Giochi da Tavolo: " + totaleGiochiDaTavolo);
+
+
+        double prezzoPiuAlto = listaGiochi.stream()
+                .mapToDouble(Gioco::getPrezzo)
+                .max().getAsDouble();
+
+        Gioco giocoPiuCaro = listaGiochi.stream()
+                .filter(gioco -> gioco.getPrezzo() == prezzoPiuAlto)
+                .findFirst().get();
+
+        System.out.println("Gioco più costoso: " + giocoPiuCaro.getTitolo() + " (€" + giocoPiuCaro.getPrezzo() + ")");
+
+
+        double mediaPrezzi = listaGiochi.stream()
+                .mapToDouble(gioco -> gioco.getPrezzo())
+                .average()
+                .getAsDouble();
+
+        System.out.println("Media dei prezzi di tutti i giochi: €" + mediaPrezzi);
     }
+    //endregion
 }

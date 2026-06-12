@@ -2,12 +2,15 @@ package niccoloSciucco;
 
 import niccoloSciucco.entities.Collezione;
 import niccoloSciucco.entities.GiochiDaTavolo;
+import niccoloSciucco.entities.Gioco;
 import niccoloSciucco.entities.VideoGiochi;
 import niccoloSciucco.enums.Genere;
 import niccoloSciucco.enums.Piattaforma;
 import niccoloSciucco.exceptions.GameAlreadyExists;
 import niccoloSciucco.exceptions.IdNotFound;
 import niccoloSciucco.exceptions.SetAttributeError;
+
+import java.util.List;
 
 public class Application {
 
@@ -25,10 +28,10 @@ public class Application {
             miaCollezione.aggiungiElemento(duplicato);
 
             //RICERCA PER ID
-            //Gioco prova = miaCollezione.ricercaPerId(99);
+            Gioco prova = miaCollezione.ricercaPerId(99);
 
             //RICERCA PER PREZZO
-//            double budget = 32.00;
+            double budget = 32.00;
 //            List<Gioco> prova = miaCollezione.ricercaPerPrezzoInferiore(budget);
 //
 //            if (prova.isEmpty()) {
@@ -41,17 +44,17 @@ public class Application {
 //            }
 
             //RICERCA PER NUMERO GIOCATORI
-//            int nGiocatori = 6;
-//            List<Gioco> filtratiPerGiocatori = miaCollezione.ricercaPerNumeroDiGiocatori(nGiocatori);
-//
-//            if (filtratiPerGiocatori.isEmpty()) {
-//                System.out.println("Nessun gioco da tavolo trovato per " + nGiocatori + " giocatori");
-//            } else {
-//                System.out.println("I giochi da tavolo trovati per " + nGiocatori + " persone sono " + filtratiPerGiocatori.size() + ":");
-//                for (Gioco g : filtratiPerGiocatori) {
-//                    System.out.println("- " + g.getTitolo());
-//                }
-//            }
+            int nGiocatori = 6;
+            List<Gioco> filtratiPerGiocatori = miaCollezione.ricercaPerNumeroDiGiocatori(nGiocatori);
+
+            if (filtratiPerGiocatori.isEmpty()) {
+                System.out.println("Nessun gioco da tavolo trovato per " + nGiocatori + " giocatori");
+            } else {
+                System.out.println("I giochi da tavolo trovati per " + nGiocatori + " persone sono " + filtratiPerGiocatori.size() + ":");
+                for (Gioco g : filtratiPerGiocatori) {
+                    System.out.println("- " + g.getTitolo());
+                }
+            }
 
             //RIMOZIONE PER ID
 //            miaCollezione.rimozioneElemento(1);
@@ -61,6 +64,9 @@ public class Application {
 //            miaCollezione.aggiornaGioco(2, "Risiko 2", 49.99);
 //            System.out.println(miaCollezione);
 
+
+            //STAMPA STATISTICHE
+            miaCollezione.stampaStatistiche();
         } catch (SetAttributeError e) {
             System.out.println("Errore nella creazione del gioco: " + e.getMessage());
         } catch (GameAlreadyExists e) {
