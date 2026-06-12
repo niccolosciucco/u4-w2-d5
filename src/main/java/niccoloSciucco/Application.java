@@ -53,6 +53,10 @@ public class Application {
 //                }
 //            }
 
+            //RIMOZIONE PER ID
+//            miaCollezione.rimozioneElemento(1);
+//            miaCollezione.rimozioneElemento(99);
+
         } catch (SetAttributeError e) {
             System.out.println("Errore nella creazione del gioco: " + e.getMessage());
         } catch (GameAlreadyExists e) {

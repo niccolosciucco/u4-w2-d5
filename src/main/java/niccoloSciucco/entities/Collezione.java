@@ -66,4 +66,13 @@ public class Collezione {
         return result;
     }
     //endregion
+
+    //region rimozioneElemento
+    public void rimozioneElemento(int id) {
+        Gioco giocoDaRimuovere = ricercaPerId(id);
+
+        listaGiochi.remove(giocoDaRimuovere);
+        System.out.println("Gioco '" + giocoDaRimuovere.getTitolo() + "' eliminato con successo!");
+    }
+    //endregion
 }
