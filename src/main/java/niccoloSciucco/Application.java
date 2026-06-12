@@ -39,8 +39,6 @@ public class Application {
                     }
                 } catch (IsNotAByte e) {
                     System.out.println(e.getMessage());
-                    System.out.println("Riavviare il programma per ricominciare");
-                    scanner.next();
                     continue;
                 }
 
@@ -66,7 +64,6 @@ public class Application {
                         }
                     } catch (IsNotInt e) {
                         System.out.println(e.getMessage());
-                        System.out.println("Riavviare il programma per ricominciare");
                         scanner.next();
                         continue;
                     }
@@ -81,8 +78,6 @@ public class Application {
                         }
                     } catch (IsNotString e) {
                         System.out.println(e.getMessage());
-                        System.out.println("Riavviare il programma per ricominciare");
-                        scanner.next();
                         continue;
                     }
 
@@ -96,7 +91,6 @@ public class Application {
                         }
                     } catch (IsNotInt e) {
                         System.out.println(e.getMessage());
-                        System.out.println("Riavviare il programma per ricominciare");
                         scanner.next();
                         continue;
                     }
@@ -111,7 +105,6 @@ public class Application {
                         }
                     } catch (IsNotInt e) {
                         System.out.println(e.getMessage());
-                        System.out.println("Riavviare il programma per ricominciare");
                         scanner.next();
                         continue;
                     }
@@ -121,9 +114,7 @@ public class Application {
                     try {
                         piattaforma = Piattaforma.valueOf(piattaformaInput);
                     } catch (IllegalArgumentException e) {
-                        System.out.println("Piattaforma non valida!");
-                        System.out.println("Riavviare il programma per ricominciare");
-                        scanner.next();
+                        System.out.println(e.getMessage());
                         continue;
                     }
 
@@ -137,7 +128,6 @@ public class Application {
                         }
                     } catch (IsNotInt e) {
                         System.out.println(e.getMessage());
-                        System.out.println("Riavviare il programma per ricominciare");
                         scanner.next();
                         continue;
                     }
@@ -147,9 +137,7 @@ public class Application {
                     try {
                         genere = Genere.valueOf(genereInput);
                     } catch (IllegalArgumentException e) {
-                        System.out.println("Genere non valido!");
-                        System.out.println("Riavviare il programma per ricominciare");
-                        scanner.next();
+                        System.out.println(e.getMessage());
                         continue;
                     }
 
@@ -182,7 +170,6 @@ public class Application {
                         }
                     } catch (IsNotInt e) {
                         System.out.println(e.getMessage());
-                        System.out.println("Riavviare il programma per ricominciare");
                         scanner.next();
                         continue;
                     }
@@ -195,8 +182,6 @@ public class Application {
                         }
                     } catch (IsNotString e) {
                         System.out.println(e.getMessage());
-                        System.out.println("Riavviare il programma per ricominciare");
-                        scanner.next();
                         continue;
                     }
 
@@ -210,7 +195,6 @@ public class Application {
                         }
                     } catch (IsNotInt e) {
                         System.out.println(e.getMessage());
-                        System.out.println("Riavviare il programma per ricominciare");
                         scanner.next();
                         continue;
                     }
@@ -225,7 +209,6 @@ public class Application {
                         }
                     } catch (IsNotInt e) {
                         System.out.println(e.getMessage());
-                        System.out.println("Riavviare il programma per ricominciare");
                         scanner.next();
                         continue;
                     }
@@ -240,7 +223,6 @@ public class Application {
                         }
                     } catch (IsNotInt e) {
                         System.out.println(e.getMessage());
-                        System.out.println("Riavviare il programma per ricominciare");
                         scanner.next();
                         continue;
                     }
@@ -255,7 +237,6 @@ public class Application {
                         }
                     } catch (IsNotInt e) {
                         System.out.println(e.getMessage());
-                        System.out.println("Riavviare il programma per ricominciare");
                         scanner.next();
                         continue;
                     }
@@ -301,7 +282,6 @@ public class Application {
                     }
                 } catch (IsNotInt e) {
                     System.out.println(e.getMessage());
-                    System.out.println("Riavviare il programma per ricominciare");
                     scanner.next();
                     continue;
                 }
@@ -314,15 +294,40 @@ public class Application {
                 switch (metodoDaEseguire) {
                     case 1 -> {
                         System.out.println("Inserire l'ID da cercare");
-                        int id = scanner.nextInt();
+                        int id = 0;
+                        try {
+                            if (!scanner.hasNextInt()) {
+                                throw new IsNotInt("L'ID inserito non è valido");
+                            } else {
+                                id = scanner.nextInt();
+                                scanner.nextLine();
+                            }
+                        } catch (IsNotInt e) {
+                            System.out.println(e.getMessage());
+                            scanner.next();
+                            continue;
+                        }
+
                         Gioco gioco = collezionePrincipale.ricercaPerId(id);
                         System.out.println(gioco);
                         System.out.println(" ");
-                        System.out.println("Inserire un altro codice per continuare o premere 0");
                     }
                     case 2 -> {
                         System.out.println("Inserire un prezzo (es. 29,9)");
-                        double prezzo = scanner.nextDouble();
+                        double prezzo = 0;
+                        try {
+                            if (!scanner.hasNextDouble()) {
+                                throw new IsNotInt("Il prezzo inserito non è valido");
+                            } else {
+                                prezzo = scanner.nextDouble();
+                                scanner.nextLine();
+                            }
+                        } catch (IsNotInt e) {
+                            System.out.println(e.getMessage());
+                            scanner.next();
+                            continue;
+                        }
+
                         List<Gioco> gioco = collezionePrincipale.ricercaPerPrezzoInferiore(prezzo);
 
                         if (gioco.isEmpty()) {
@@ -336,7 +341,20 @@ public class Application {
                     }
                     case 3 -> {
                         System.out.println("Inserire il numero di giocatori");
-                        int n = scanner.nextInt();
+                        int n = 0;
+                        try {
+                            if (!scanner.hasNextInt()) {
+                                throw new IsNotInt("Il numero di giocatori inserito non è valido");
+                            } else {
+                                n = scanner.nextInt();
+                                scanner.nextLine();
+                            }
+                        } catch (IsNotInt e) {
+                            System.out.println(e.getMessage());
+                            scanner.next();
+                            continue;
+                        }
+
                         List<Gioco> filtratiPerGiocatori = collezionePrincipale.ricercaPerNumeroDiGiocatori(n);
 
                         if (filtratiPerGiocatori.isEmpty()) {
@@ -350,18 +368,56 @@ public class Application {
                     }
                     case 4 -> {
                         System.out.println("Inserire l'ID del gioco da eliminare");
-                        int id = scanner.nextInt();
+                        int id = 0;
+                        try {
+                            if (!scanner.hasNextInt()) {
+                                throw new IsNotInt("L'ID inserito non è valido");
+                            } else {
+                                id = scanner.nextInt();
+                                scanner.nextLine();
+                            }
+                        } catch (IsNotInt e) {
+                            System.out.println(e.getMessage());
+                            scanner.next();
+                            continue;
+                        }
+
                         collezionePrincipale.rimozioneElemento(id);
                     }
                     case 5 -> {
                         System.out.println("Inserire l'ID del gioco da aggiornare");
-                        int id = scanner.nextInt();
-                        scanner.nextLine();
+                        int id = 0;
+                        try {
+                            if (!scanner.hasNextInt()) {
+                                throw new IsNotInt("L'ID inserito non è valido");
+                            } else {
+                                id = scanner.nextInt();
+                                scanner.nextLine();
+                            }
+                        } catch (IsNotInt e) {
+                            System.out.println(e.getMessage());
+                            scanner.next();
+                            continue;
+                        }
+
                         System.out.println("Inserire il titolo da aggiornare (Inserire il titolo vecchio se non si vuole cambiare)");
                         String titolo = scanner.nextLine();
+
                         System.out.println("Inserire il prezzo da aggiornare (Inserire il prezzo vecchio se non si vuole cambiare)");
-                        double prezzo = scanner.nextDouble();
-                        scanner.nextLine();
+                        double prezzo = 0;
+                        try {
+                            if (!scanner.hasNextDouble()) {
+                                throw new IsNotInt("Il prezzo inserito non è valido");
+                            } else {
+                                prezzo = scanner.nextDouble();
+                                scanner.nextLine();
+                            }
+                        } catch (IsNotInt e) {
+                            System.out.println(e.getMessage());
+                            scanner.next();
+                            continue;
+                        }
+
                         collezionePrincipale.aggiornaGioco(id, titolo, prezzo);
                         System.out.println(collezionePrincipale);
                     }
