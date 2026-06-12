@@ -2,7 +2,6 @@ package niccoloSciucco;
 
 import niccoloSciucco.entities.Collezione;
 import niccoloSciucco.entities.GiochiDaTavolo;
-import niccoloSciucco.entities.Gioco;
 import niccoloSciucco.entities.VideoGiochi;
 import niccoloSciucco.enums.Genere;
 import niccoloSciucco.enums.Piattaforma;
@@ -25,7 +24,21 @@ public class Application {
             VideoGiochi duplicato = new VideoGiochi(3, "GTA V", 2013, 19.99, Piattaforma.XBOX, 80.0, Genere.AZIONE);
             miaCollezione.aggiungiElemento(duplicato);
 
-            Gioco prova = miaCollezione.ricercaPerId(99);
+            //RICERCA PER ID
+            //Gioco prova = miaCollezione.ricercaPerId(99);
+
+            //RICERCA PER PREZZO
+//            double budget = 32.00;
+//            List<Gioco> prova = miaCollezione.ricercaPerPrezzoInferiore(budget);
+//
+//            if (prova.isEmpty()) {
+//                System.out.println("Nessun gioco trovato sotto " + budget + "€");
+//            } else {
+//                System.out.println("Sono stati trovati " + prova.size() + " giochi che hanno un prezzo inferiore a " + budget + "€:");
+//                for (Gioco g : prova) {
+//                    System.out.println("- " + g.getTitolo() + " -€" + g.getPrezzo());
+//                }
+//            }
 
         } catch (SetAttributeError e) {
             System.out.println("Errore nella creazione del gioco: " + e.getMessage());

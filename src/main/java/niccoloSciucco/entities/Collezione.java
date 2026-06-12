@@ -44,4 +44,13 @@ public class Collezione {
         }
     }
     //endregion
+
+    //region ricercaPerPrezzo
+    public List<Gioco> ricercaPerPrezzoInferiore(double prezzoMassimo) {
+        return listaGiochi.stream()
+                .filter(gioco -> gioco.getPrezzo() < prezzoMassimo)
+                .collect(Collectors.toList());
+    }
+    //endregion
+
 }

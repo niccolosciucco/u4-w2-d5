@@ -41,4 +41,8 @@ public abstract class Gioco {
     public String getTitolo() {
         return titolo;
     }
+
+    public double getPrezzo() {
+        return prezzo;
+    }
 }
